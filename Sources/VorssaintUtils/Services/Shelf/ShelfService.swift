@@ -36,6 +36,11 @@ final class ShelfService: ObservableObject {
     private var mouseMonitor: Any?
     private var shakeSamples: [(t: TimeInterval, x: CGFloat)] = []
     private var lastSummon: TimeInterval = 0
+    /// Drag-pasteboard change count captured at mouse-down. A shake only counts
+    /// when this has since changed — i.e. an actual file/image/text drag is in
+    /// progress. Moving a window writes nothing to the drag pasteboard, so it
+    /// leaves this untouched and never summons the shelf.
+    private var dragPasteboardBaseline = 0
 
     private let tempDir: URL = {
         let dir = FileManager.default.temporaryDirectory.appendingPathComponent("VorssaintShelf", isDirectory: true)
@@ -101,8 +106,17 @@ final class ShelfService: ObservableObject {
 
     private func startShakeMonitor() {
         guard mouseMonitor == nil else { return }
-        mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDragged]) { [weak self] event in
-            self?.handleDrag(event)
+        dragPasteboardBaseline = NSPasteboard(name: .drag).changeCount
+        mouseMonitor = NSEvent.addGlobalMonitorForEvents(matching: [.leftMouseDown, .leftMouseDragged]) { [weak self] event in
+            guard let self else { return }
+            if event.type == .leftMouseDown {
+                // Capture the drag pasteboard before any drag starts; a content
+                // drag will bump it, a window move won't.
+                self.dragPasteboardBaseline = NSPasteboard(name: .drag).changeCount
+                self.shakeSamples.removeAll()
+            } else {
+                self.handleDrag(event)
+            }
         }
     }
 
@@ -133,6 +147,9 @@ final class ShelfService: ObservableObject {
             }
         }
         if reversals >= 3, travel > 220, t - lastSummon > 1.0 {
+            // Only when content is actually being dragged — not when a window is
+            // being moved (nothing droppable, so the shelf shouldn't appear).
+            guard NSPasteboard(name: .drag).changeCount != dragPasteboardBaseline else { return }
             lastSummon = t
             shakeSamples.removeAll()
             DispatchQueue.main.async { [weak self] in self?.summon() }
@@ -261,7 +278,8 @@ final class ShelfService: ObservableObject {
         panel.isOpaque = false
         panel.backgroundColor = .clear
         panel.hasShadow = true
-        panel.isMovableByWindowBackground = true
+        // Not movable by background: dragging a tile must start an item drag,
+        // not move the whole panel.
         panel.hidesOnDeactivate = false
         panel.isReleasedWhenClosed = false
         panel.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary, .ignoresCycle]

@@ -4,6 +4,16 @@ All notable changes to this project are documented here. The format follows
 [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and the project uses
 [Semantic Versioning](https://semver.org/).
 
+## [2.4.1] — 2026-06-12
+
+### Fixed
+- **Shelf**: dragging an item out of the shelf now works. The panel no longer
+  moves with the pointer, so grabbing a tile starts an item drag instead of
+  dragging the whole window
+- **Shelf**: shaking the mouse while *moving a window* no longer summons the
+  shelf — it appears only when something droppable (a file, image, text or link)
+  is actually being dragged
+
 ## [2.4.0] — 2026-06-12
 
 ### Added
