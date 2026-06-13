@@ -1,6 +1,6 @@
 # Vorssaint Utils
 
-> A premium, native utility hub for macOS — living quietly in your menu bar.
+> A premium, native utility hub for macOS, living quietly in your menu bar.
 
 [![Release](https://img.shields.io/github/v/release/vorssaint/vorssaint-utils?label=release)](https://github.com/vorssaint/vorssaint-utils/releases)
 [![CI](https://github.com/vorssaint/vorssaint-utils/actions/workflows/ci.yml/badge.svg)](https://github.com/vorssaint/vorssaint-utils/actions/workflows/ci.yml)
@@ -10,8 +10,8 @@
 *Leia em [Português (Brasil)](docs/README.pt-BR.md).*
 
 Vorssaint Utils keeps your Mac awake on demand, shows the system readings that
-actually matter, gives your mouse Windows-style scrolling without touching the
-trackpad, and replaces ⌘Tab with a window switcher that shows real thumbnails.
+actually matter, inverts mouse wheel scrolling without touching the trackpad,
+and replaces ⌘Tab with a window switcher that shows real thumbnails.
 100% native (SwiftUI + AppKit), bilingual (en-US / pt-BR), no Electron, no
 analytics, no network calls.
 
@@ -19,8 +19,8 @@ analytics, no network calls.
 
 ### ⚡ Keep awake
 - Toggle from the panel, the right-click menu or the global shortcut **⌃⌥⌘K**
-- Sessions from 15 min to 8 h, or indefinite — with +15/+30/+60 min extensions
-- Keep the display on, or let it sleep while the system stays awake
+- Sessions from 15 min to 8 h, or indefinite, with +15/+30/+60 min extensions
+- The display stays on while a session is active
 - **Closed-lid mode**: keep a MacBook running with the lid shut
   (`pmset disablesleep`, automatically reverted when the session ends, the app
   quits or after a crash)
@@ -30,42 +30,41 @@ analytics, no network calls.
 - Menu bar countdown and end-of-session notifications
 
 ### 🌡️ System monitor
-- **Temperatures** for CPU, GPU and battery — the most relevant reading per
+- **Temperatures** for CPU, GPU and battery: the most relevant reading per
   component, straight from the SMC
 - **Hardware usage**: CPU % and GPU %
 - **Memory pressure** with a traffic-light indicator
   (green = normal, yellow = caution, red = critical) plus used/total memory
 
-### 🖱️ Windows-style scrolling
-- Inverts the **mouse wheel only** — the trackpad keeps macOS natural scrolling
+### 🖱️ Mouse scrolling
+- Inverts the **mouse wheel only**; the trackpad keeps macOS natural scrolling
 - Applies instantly, no restart, no kernel extension
 
 ### 🪟 Window switcher
-- Replaces **⌘Tab** with a grid showing every window as a live thumbnail —
+- Replaces **⌘Tab** with a grid showing every window as a live thumbnail,
   not just app icons
 - **Browser tabs are first-class**: each Safari/Chrome/Edge/Brave/Vivaldi tab is
   its own entry, and ⌘Tab toggles between two tabs of the same browser just like
   between two apps (real most-recently-used order, at tab granularity)
 - Instant: a quick flick switches with no UI; the window raises immediately
 - Hold ⌘ and tap Tab to cycle; Shift/← goes back; release to switch; **Q** quits
-  the highlighted app; Esc cancels — fluid, animated, Mission Control & Spaces friendly
+  the highlighted app; Esc cancels. Fluid, animated, Mission Control & Spaces friendly
 - Falls back gracefully to app icons when Screen Recording is not granted
 
 ### 🎚️ Per-app volume mixer
-- Set each app's volume individually — something macOS doesn't offer
+- Set each app's volume individually, something macOS doesn't offer
   (CoreAudio process taps, macOS 14.4+; nothing is recorded)
 - Every app holding an audio connection appears, with a live indicator for the
   ones playing now; volumes persist per app, and 100% = untouched audio
 
 ### ✂️ Cut & paste files in Finder
 - Press **⌘X** to cut the current Finder selection and **⌘V** to move it into
-  the folder you're viewing — the move people coming from Windows expect
+  the folder you're viewing
 - Handles multiple files and folders; a floating HUD shows what's held and
   confirms the move. Text fields keep their normal ⌘X / ⌘V
 
 ### ❌ Quit on last window close
-- When an app's last window closes, the app quits — a tidy way to free memory,
-  the way it works on Windows
+- When an app's last window closes, the app quits and frees its memory
 - Apps that run window-less are never touched, and a per-app exception list
   keeps any app you choose running
 
@@ -78,11 +77,11 @@ analytics, no network calls.
 ### 📥 Temporary shelf
 - A floating spot to gather files, images, text and links, then drag them back
   out into any app, window or Space later
-- Summon it at the cursor with **⌃⌥⌘D** or by shaking the mouse mid-drag — no
+- Summon it at the cursor with **⌃⌥⌘D** or by shaking the mouse mid-drag; no
   permissions required
 
-> The four utilities above are opt-in. Turn each on during onboarding or in
-> **Settings › Features**, where every one has its own page.
+> The utilities above are optional. Configure each one during onboarding or in
+> **Settings › Features**, where every feature has its own page.
 
 ## Install
 
@@ -91,7 +90,7 @@ Grab the latest DMG from [**Releases**](https://github.com/vorssaint/vorssaint-u
 open it and drag **Vorssaint Utils** into **Applications**.
 
 > Releases are signed with a stable self-signed certificate (no paid Apple
-> Developer ID), so granted permissions persist across updates — but Gatekeeper
+> Developer ID), so granted permissions persist across updates. Gatekeeper
 > still flags the first launch. Right-click the app → **Open**, or clear the
 > quarantine flag:
 > `xattr -d com.apple.quarantine "/Applications/Vorssaint Utils.app"`
@@ -115,13 +114,13 @@ cd vorssaint-utils
 ```
 It quits the app, unregisters the login item, resets its Accessibility and
 Screen Recording permissions, deletes the app, preferences and saved state,
-and removes the optional closed-lid `sudoers` rule — leaving nothing behind.
+and removes the optional closed-lid `sudoers` rule, leaving nothing behind.
 Or just drag the app to the Trash and run
 `tccutil reset All com.vorssaint.utils` to clear its permissions.
 
 ## Permissions
 
-Everything is optional — features degrade gracefully and the onboarding walks
+Everything is optional: features degrade gracefully and the onboarding walks
 you through each grant:
 
 | Permission | Used by | Without it |
@@ -173,12 +172,12 @@ Diagnostics:
 
 ## Contributing
 
-Issues and pull requests are welcome — see [CONTRIBUTING.md](CONTRIBUTING.md)
+Issues and pull requests are welcome; see [CONTRIBUTING.md](CONTRIBUTING.md)
 for the build setup, project conventions and how to add a translation or port
 the sensor mapping to a new chip.
 
 ## License
 
-[PolyForm Noncommercial License 1.0.0](LICENSE) — © 2026 Vorssaint.
+[PolyForm Noncommercial License 1.0.0](LICENSE), © 2026 Vorssaint.
 Free to use, modify and share for any **noncommercial** purpose, with attribution.
 Commercial use is not permitted.

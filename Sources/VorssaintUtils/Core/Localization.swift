@@ -80,7 +80,6 @@ struct Strings {
     let keepAwakeUntilDisabled: String
     let keepAwakeNormalRules: String
     let durationLabel: String
-    let keepDisplayOn: String
     let clamshellTitle: String
     let clamshellOnCaption: String
     let clamshellNeedsSession: String
@@ -135,7 +134,6 @@ struct Strings {
     // MARK: Settings — energy
     let sessionSection: String
     let defaultDurationLabel: String
-    let keepDisplayCaption: String
     let batteryProtectionSection: String
     let batteryDisableBelow: String
     let batteryNever: String
@@ -150,7 +148,6 @@ struct Strings {
     let invertMouseScroll: String
     let invertMouseScrollCaption: String
     let scrollTrackpadNote: String
-    let scrollLiveNote: String
     let scrollActiveNow: String
 
     // MARK: Settings — switcher
@@ -195,15 +192,11 @@ struct Strings {
 
     // MARK: Feature — complete app uninstaller
     let uninstallerName: String
-    let uninstallerEnable: String
     let uninstallerEnableCaption: String
-    let uninstallerHowTitle: String
     let uninstallerStep1: String
     let uninstallerStep2: String
     let uninstallerStep3: String
-    let uninstallerOpen: String
     let uninstallerMenuItem: String
-    let uninstallerWindowTitle: String
     let uninstallerDropTitle: String
     let uninstallerDropSubtitle: String
     let uninstallerChoose: String
@@ -221,7 +214,6 @@ struct Strings {
     let uninstallerFreedFormat: String      // + size string
     let uninstallerSomeFailed: String
     let uninstallerAnother: String
-    let uninstallerClose: String
     let uninstallerCatApp: String
     let uninstallerCatSupport: String
     let uninstallerCatCaches: String
@@ -334,9 +326,9 @@ struct Strings {
 
 extension Strings {
     static let ptBR = Strings(
-        statusIdleTooltip: "Vorssaint Utils — suspensão normal",
-        statusActiveUntil: "Vorssaint Utils — ativo até",
-        statusActiveIndefinite: "Vorssaint Utils — ativo indefinidamente",
+        statusIdleTooltip: "Vorssaint Utils: suspensão normal",
+        statusActiveUntil: "Vorssaint Utils: ativo até",
+        statusActiveIndefinite: "Vorssaint Utils: ativo indefinidamente",
         menuEnableAwake: "Ativar manter acordado",
         menuDisableAwake: "Desativar manter acordado",
         menuActivateFor: "Ativar por…",
@@ -365,11 +357,10 @@ extension Strings {
         keepAwakeUntilDisabled: "Ativo até você desativar",
         keepAwakeNormalRules: "O Mac segue as regras normais de energia",
         durationLabel: "Duração",
-        keepDisplayOn: "Manter a tela ligada",
         clamshellTitle: "Continuar com a tampa fechada",
-        clamshellOnCaption: "Suspensão totalmente desativada — atenção à energia",
+        clamshellOnCaption: "Suspensão totalmente desativada. Atenção à energia",
         clamshellNeedsSession: "Será aplicada sempre que “Manter acordado” estiver ativo",
-        clamshellReady: "Pronto — liga e desliga sem senha",
+        clamshellReady: "Pronto. Liga e desliga sem senha",
         clamshellNeedsPassword: "Pedirá a senha de administrador ao ativar",
 
         systemSection: "Sistema",
@@ -386,9 +377,9 @@ extension Strings {
         monitorUnavailable: "Sensores indisponíveis neste Mac",
 
         notifySessionEndedTitle: "Sessão encerrada",
-        notifySessionEndedBody: "O tempo acabou — o Mac voltará a suspender normalmente.",
+        notifySessionEndedBody: "O tempo acabou. O Mac voltará a suspender normalmente.",
         notifyBatteryTitle: "Vorssaint Utils desativado",
-        notifyBatteryBody: "Bateria baixa — a suspensão normal foi restaurada para proteger a carga.",
+        notifyBatteryBody: "Bateria baixa. A suspensão normal foi restaurada para proteger a carga.",
 
         adminPromptClamshellOn: "O Vorssaint Utils precisa da sua senha para manter o Mac ativo com a tampa fechada. Dispense este pedido na introdução do app (Ajustes › Sobre).",
         adminPromptClamshellOff: "O Vorssaint Utils precisa da sua senha para reativar a suspensão normal do Mac.",
@@ -414,7 +405,6 @@ extension Strings {
 
         sessionSection: "Sessão",
         defaultDurationLabel: "Duração padrão",
-        keepDisplayCaption: "Com a tela desligada, o Mac continua acordado para downloads, builds e servidores.",
         batteryProtectionSection: "Proteção de bateria",
         batteryDisableBelow: "Desativar com bateria abaixo de",
         batteryNever: "Nunca",
@@ -426,14 +416,13 @@ extension Strings {
 
         scrollSection: "Rolagem",
         invertMouseScroll: "Inverter rolagem do mouse",
-        invertMouseScrollCaption: "A roda do mouse passa a rolar como no Windows.",
+        invertMouseScrollCaption: "Inverte a direção da roda do mouse.",
         scrollTrackpadNote: "O trackpad não muda: continua com a rolagem natural do macOS.",
-        scrollLiveNote: "A mudança vale na hora, sem reiniciar nada.",
         scrollActiveNow: "Invertendo a rolagem do mouse agora",
 
         switcherSection: "Alternador de apps",
         switcherEnable: "Substituir o ⌘Tab pelo alternador do Vorssaint Utils",
-        switcherEnableCaption: "Troque de janela vendo miniaturas reais, como o Alt+Tab do Windows.",
+        switcherEnableCaption: "Troque de janela vendo miniaturas reais de cada janela e aba.",
         switcherUsageHint: "Segure ⌘ e toque Tab para navegar; solte para ativar a janela. Shift ou ← volta; Q fecha o app selecionado; Esc cancela.",
         switcherNoWindows: "Nenhuma janela aberta",
         switcherTabsToggle: "Mostrar abas dos navegadores",
@@ -441,7 +430,7 @@ extension Strings {
 
         cutPasteName: "Recortar e colar",
         cutPasteEnable: "Recortar e colar arquivos no Finder",
-        cutPasteEnableCaption: "Use ⌘X para recortar e ⌘V para mover arquivos e pastas — como o Ctrl+X e Ctrl+V do Windows.",
+        cutPasteEnableCaption: "Use ⌘X para recortar e ⌘V para mover arquivos e pastas no Finder.",
         cutPasteHowTitle: "Como usar",
         cutPasteStep1: "Selecione itens no Finder e pressione ⌘X para recortá-los.",
         cutPasteStep2: "Abra a pasta de destino e pressione ⌘V para movê-los para lá.",
@@ -457,11 +446,11 @@ extension Strings {
 
         autoQuitName: "Encerrar ao fechar",
         autoQuitEnable: "Encerrar o app ao fechar a última janela",
-        autoQuitEnableCaption: "Fechar a última janela de um app também o encerra — como no Windows.",
+        autoQuitEnableCaption: "Fechar a última janela de um app também o encerra.",
         autoQuitActiveNow: "Ativo e monitorando janelas",
         autoQuitHowTitle: "Como funciona",
         autoQuitStep1: "Feche a última janela de um app (⌘W ou o botão vermelho).",
-        autoQuitStep2: "O app é encerrado sozinho, liberando memória — diálogos de “salvar?” continuam aparecendo.",
+        autoQuitStep2: "O app é encerrado sozinho. Diálogos de “salvar?” continuam aparecendo.",
         autoQuitPredictableNote: "Apps que normalmente rodam sem janela nunca são encerrados.",
         autoQuitExceptionsTitle: "Exceções",
         autoQuitExceptionsCaption: "Apps nesta lista continuam abertos mesmo sem nenhuma janela.",
@@ -469,22 +458,18 @@ extension Strings {
         autoQuitAddApp: "Adicionar app…",
 
         uninstallerName: "Desinstalador",
-        uninstallerEnable: "Desinstalação completa de apps",
         uninstallerEnableCaption: "Remove um app junto com os caches, preferências, logs e resíduos que ele deixa para trás.",
-        uninstallerHowTitle: "Como usar",
-        uninstallerStep1: "Arraste um app para a janela ou escolha um da lista.",
+        uninstallerStep1: "Arraste um app para os Ajustes ou escolha um da lista.",
         uninstallerStep2: "Revise os arquivos encontrados e quanto espaço ocupam.",
-        uninstallerStep3: "Mova o que quiser para a Lixeira — nada é apagado de forma definitiva.",
-        uninstallerOpen: "Abrir desinstalador…",
+        uninstallerStep3: "Mova o que quiser para a Lixeira. Nada é apagado de forma definitiva.",
         uninstallerMenuItem: "Desinstalar um app…",
-        uninstallerWindowTitle: "Desinstalar app",
         uninstallerDropTitle: "Arraste um app aqui",
         uninstallerDropSubtitle: "ou escolha um para analisar",
         uninstallerChoose: "Escolher app…",
         uninstallerEmptyNote: "Nada é removido sem a sua confirmação.",
         uninstallerFDANote: "Conceda Acesso Total ao Disco para uma análise mais completa.",
         uninstallerFDAGrant: "Conceder acesso…",
-        uninstallerFDAHint: "Ative o Vorssaint Utils na lista que abrir (arraste-o ou use o + se não aparecer). O macOS vai pedir para reabrir o app.",
+        uninstallerFDAHint: "Ative o Vorssaint Utils na lista e reabra o app quando o macOS pedir.",
         uninstallerScanning: "Analisando arquivos…",
         uninstallerRemoving: "Movendo para a Lixeira…",
         uninstallerFoundTitle: "encontrado",
@@ -493,9 +478,8 @@ extension Strings {
         uninstallerCancel: "Cancelar",
         uninstallerDoneTitle: "Pronto!",
         uninstallerFreedFormat: "%@ recuperados",
-        uninstallerSomeFailed: "Alguns itens exigem privilégios de administrador e não foram removidos.",
+        uninstallerSomeFailed: "Alguns itens não puderam ser movidos para a Lixeira.",
         uninstallerAnother: "Desinstalar outro",
-        uninstallerClose: "Fechar",
         uninstallerCatApp: "Aplicativo",
         uninstallerCatSupport: "Suporte",
         uninstallerCatCaches: "Caches",
@@ -523,7 +507,7 @@ extension Strings {
         shelfClearAll: "Limpar tudo",
         shelfRemoveSelected: "Remover selecionados",
         shelfSelectedFormat: "%d selecionados",
-        shelfHint: "Clique para selecionar; arraste para fora para usar (e sai daqui).",
+        shelfHint: "Clique para selecionar. Arraste para fora para usar.",
         shelfItemImage: "Imagem",
 
         breakdownMeasuring: "Medindo…",
@@ -556,7 +540,7 @@ extension Strings {
         permissionRequest: "Pedir permissão",
         permissionRestartNote: "O macOS pode pedir para reabrir o app depois de conceder.",
 
-        aboutDescription: "Central de utilidades para o seu Mac.\nEnergia, monitor do sistema, rolagem e alternador de janelas — direto na barra de menus.",
+        aboutDescription: "Central de utilidades para o seu Mac.\nEnergia, monitor do sistema, rolagem e alternador de janelas, direto na barra de menus.",
         versionPrefix: "Versão",
         reviewIntro: "Rever introdução",
         viewOnGitHub: "Ver no GitHub",
@@ -572,7 +556,7 @@ extension Strings {
         obWelcomeBullet2Title: "Visão clara do sistema",
         obWelcomeBullet2Body: "Temperaturas, uso de CPU e GPU e pressão de memória em tempo real.",
         obWelcomeBullet3Title: "Mouse e janelas do seu jeito",
-        obWelcomeBullet3Body: "Rolagem estilo Windows no mouse e um alternador de janelas com miniaturas.",
+        obWelcomeBullet3Body: "Rolagem invertida no mouse e um alternador de janelas com miniaturas.",
         obLanguageLabel: "Idioma",
         obStepAccessibilityTitle: "Acessibilidade",
         obStepAccessibilityBody: "Necessária para inverter a rolagem do mouse e para o alternador de janelas responder ao teclado.",
@@ -582,7 +566,7 @@ extension Strings {
         obRecordingWhy: "As miniaturas são geradas na hora, ficam só na memória e nunca saem do seu Mac. Sem ela, o alternador funciona com ícones.",
         obStepMonitorTitle: "Monitor do sistema",
         obStepMonitorBody: "O painel mostra as temperaturas de CPU, GPU e bateria, o uso de hardware e a pressão de memória.",
-        obMonitorNoPermission: "Não precisa de permissão — os sensores são lidos direto do sistema.",
+        obMonitorNoPermission: "Não precisa de permissão. Os sensores são lidos direto do sistema.",
         obStepOptionalTitle: "Recursos opcionais",
         obStepOptionalBody: "Ative agora o que quiser usar. Tudo pode ser mudado depois nos Ajustes.",
         obPasswordlessToggle: "Tampa fechada sem pedir senha",
@@ -594,7 +578,7 @@ extension Strings {
         obStepDoneBody: "O Vorssaint Utils já está cuidando do seu Mac.",
         obDoneHint: "Procure o buraco negro na barra de menus, no canto superior direito da tela.",
         obWhatsNewTitle: "Novidades nesta versão",
-        obWhatsNewBody: "Quatro novos recursos opcionais. Veja como cada um funciona e ative os que quiser — leva menos de um minuto."
+        obWhatsNewBody: "Quatro novos recursos opcionais. Veja como cada um funciona e ative os que quiser."
     )
 }
 
@@ -602,9 +586,9 @@ extension Strings {
 
 extension Strings {
     static let enUS = Strings(
-        statusIdleTooltip: "Vorssaint Utils — normal sleep",
-        statusActiveUntil: "Vorssaint Utils — awake until",
-        statusActiveIndefinite: "Vorssaint Utils — awake indefinitely",
+        statusIdleTooltip: "Vorssaint Utils: normal sleep",
+        statusActiveUntil: "Vorssaint Utils: awake until",
+        statusActiveIndefinite: "Vorssaint Utils: awake indefinitely",
         menuEnableAwake: "Enable keep awake",
         menuDisableAwake: "Disable keep awake",
         menuActivateFor: "Activate for…",
@@ -633,11 +617,10 @@ extension Strings {
         keepAwakeUntilDisabled: "Active until you turn it off",
         keepAwakeNormalRules: "The Mac follows its normal energy rules",
         durationLabel: "Duration",
-        keepDisplayOn: "Keep the display on",
         clamshellTitle: "Keep going with the lid closed",
-        clamshellOnCaption: "Sleep fully disabled — mind the power",
+        clamshellOnCaption: "Sleep fully disabled. Mind the power",
         clamshellNeedsSession: "Applied whenever “Keep awake” is active",
-        clamshellReady: "Ready — toggles without a password",
+        clamshellReady: "Ready. Toggles without a password",
         clamshellNeedsPassword: "Will ask for the administrator password when enabling",
 
         systemSection: "System",
@@ -654,9 +637,9 @@ extension Strings {
         monitorUnavailable: "Sensors unavailable on this Mac",
 
         notifySessionEndedTitle: "Session ended",
-        notifySessionEndedBody: "Time is up — the Mac will sleep normally again.",
+        notifySessionEndedBody: "Time is up. The Mac will sleep normally again.",
         notifyBatteryTitle: "Vorssaint Utils disabled",
-        notifyBatteryBody: "Low battery — normal sleep was restored to protect the charge.",
+        notifyBatteryBody: "Low battery. Normal sleep was restored to protect the charge.",
 
         adminPromptClamshellOn: "Vorssaint Utils needs your password to keep the Mac awake with the lid closed. Waive this prompt in the app introduction (Settings › About).",
         adminPromptClamshellOff: "Vorssaint Utils needs your password to restore the Mac's normal sleep.",
@@ -682,7 +665,6 @@ extension Strings {
 
         sessionSection: "Session",
         defaultDurationLabel: "Default duration",
-        keepDisplayCaption: "With the display off, the Mac stays awake for downloads, builds and servers.",
         batteryProtectionSection: "Battery protection",
         batteryDisableBelow: "Disable when battery drops below",
         batteryNever: "Never",
@@ -694,14 +676,13 @@ extension Strings {
 
         scrollSection: "Scrolling",
         invertMouseScroll: "Invert mouse scrolling",
-        invertMouseScrollCaption: "The mouse wheel scrolls like it does on Windows.",
+        invertMouseScrollCaption: "Reverses the mouse wheel direction.",
         scrollTrackpadNote: "The trackpad is untouched: it keeps macOS natural scrolling.",
-        scrollLiveNote: "Takes effect immediately, nothing to restart.",
         scrollActiveNow: "Inverting mouse scrolling right now",
 
         switcherSection: "App switcher",
         switcherEnable: "Replace ⌘Tab with the Vorssaint Utils switcher",
-        switcherEnableCaption: "Switch windows with real thumbnails, like Alt+Tab on Windows.",
+        switcherEnableCaption: "Switch windows with real thumbnails of every window and tab.",
         switcherUsageHint: "Hold ⌘ and tap Tab to navigate; release to activate the window. Shift or ← goes back; Q quits the selected app; Esc cancels.",
         switcherNoWindows: "No open windows",
         switcherTabsToggle: "Show browser tabs",
@@ -709,7 +690,7 @@ extension Strings {
 
         cutPasteName: "Cut & paste",
         cutPasteEnable: "Cut & paste files in Finder",
-        cutPasteEnableCaption: "Use ⌘X to cut and ⌘V to move files and folders — just like Ctrl+X and Ctrl+V on Windows.",
+        cutPasteEnableCaption: "Use ⌘X to cut and ⌘V to move files and folders in Finder.",
         cutPasteHowTitle: "How to use",
         cutPasteStep1: "Select items in Finder and press ⌘X to cut them.",
         cutPasteStep2: "Open the destination folder and press ⌘V to move them there.",
@@ -725,11 +706,11 @@ extension Strings {
 
         autoQuitName: "Quit on close",
         autoQuitEnable: "Quit an app when its last window closes",
-        autoQuitEnableCaption: "Closing an app's last window also quits it — like on Windows.",
+        autoQuitEnableCaption: "Closing an app's last window also quits it.",
         autoQuitActiveNow: "Active and watching windows",
         autoQuitHowTitle: "How it works",
         autoQuitStep1: "Close an app's last window (⌘W or the red button).",
-        autoQuitStep2: "The app quits on its own, freeing memory — “save changes?” dialogs still appear.",
+        autoQuitStep2: "The app quits on its own. “Save changes?” dialogs still appear.",
         autoQuitPredictableNote: "Apps that normally run without a window are never quit.",
         autoQuitExceptionsTitle: "Exceptions",
         autoQuitExceptionsCaption: "Apps on this list stay open even with no windows.",
@@ -737,22 +718,18 @@ extension Strings {
         autoQuitAddApp: "Add app…",
 
         uninstallerName: "Uninstaller",
-        uninstallerEnable: "Complete app uninstall",
         uninstallerEnableCaption: "Removes an app together with the caches, preferences, logs and leftovers it leaves behind.",
-        uninstallerHowTitle: "How to use",
-        uninstallerStep1: "Drag an app onto the window, or pick one from the list.",
+        uninstallerStep1: "Drag an app onto Settings, or pick one from the list.",
         uninstallerStep2: "Review the files found and how much space they take.",
-        uninstallerStep3: "Move what you want to the Trash — nothing is deleted permanently.",
-        uninstallerOpen: "Open uninstaller…",
+        uninstallerStep3: "Move what you want to the Trash. Nothing is deleted permanently.",
         uninstallerMenuItem: "Uninstall an app…",
-        uninstallerWindowTitle: "Uninstall app",
         uninstallerDropTitle: "Drag an app here",
         uninstallerDropSubtitle: "or choose one to scan",
         uninstallerChoose: "Choose app…",
         uninstallerEmptyNote: "Nothing is removed without your confirmation.",
         uninstallerFDANote: "Grant Full Disk Access for a more thorough scan.",
         uninstallerFDAGrant: "Grant access…",
-        uninstallerFDAHint: "Turn on Vorssaint Utils in the list that opens (drag it in or use + if it isn't there). macOS will ask to reopen the app.",
+        uninstallerFDAHint: "Turn on Vorssaint Utils in the list and reopen the app when macOS asks.",
         uninstallerScanning: "Scanning files…",
         uninstallerRemoving: "Moving to the Trash…",
         uninstallerFoundTitle: "found",
@@ -761,9 +738,8 @@ extension Strings {
         uninstallerCancel: "Cancel",
         uninstallerDoneTitle: "Done!",
         uninstallerFreedFormat: "%@ recovered",
-        uninstallerSomeFailed: "Some items need administrator privileges and weren't removed.",
+        uninstallerSomeFailed: "Some items couldn't be moved to the Trash.",
         uninstallerAnother: "Uninstall another",
-        uninstallerClose: "Close",
         uninstallerCatApp: "Application",
         uninstallerCatSupport: "Support",
         uninstallerCatCaches: "Caches",
@@ -791,7 +767,7 @@ extension Strings {
         shelfClearAll: "Clear all",
         shelfRemoveSelected: "Remove selected",
         shelfSelectedFormat: "%d selected",
-        shelfHint: "Click to select; drag out to use (and clear from here).",
+        shelfHint: "Click to select. Drag out to use.",
         shelfItemImage: "Image",
 
         breakdownMeasuring: "Measuring…",
@@ -824,7 +800,7 @@ extension Strings {
         permissionRequest: "Request permission",
         permissionRestartNote: "macOS may ask to reopen the app after granting.",
 
-        aboutDescription: "A utility hub for your Mac.\nEnergy, system monitor, scrolling and a window switcher — right in the menu bar.",
+        aboutDescription: "A utility hub for your Mac.\nEnergy, system monitor, scrolling and a window switcher, right in the menu bar.",
         versionPrefix: "Version",
         reviewIntro: "Review introduction",
         viewOnGitHub: "View on GitHub",
@@ -840,7 +816,7 @@ extension Strings {
         obWelcomeBullet2Title: "A clear view of the system",
         obWelcomeBullet2Body: "CPU, GPU and battery temperatures, hardware usage and memory pressure in real time.",
         obWelcomeBullet3Title: "Mouse and windows, your way",
-        obWelcomeBullet3Body: "Windows-style scrolling for the mouse and a window switcher with thumbnails.",
+        obWelcomeBullet3Body: "Reversed mouse scrolling and a window switcher with thumbnails.",
         obLanguageLabel: "Language",
         obStepAccessibilityTitle: "Accessibility",
         obStepAccessibilityBody: "Needed to invert mouse scrolling and for the window switcher to respond to the keyboard.",
@@ -850,7 +826,7 @@ extension Strings {
         obRecordingWhy: "Thumbnails are generated on the fly, stay in memory and never leave your Mac. Without it, the switcher still works with icons.",
         obStepMonitorTitle: "System monitor",
         obStepMonitorBody: "The panel shows CPU, GPU and battery temperatures, hardware usage and memory pressure.",
-        obMonitorNoPermission: "No permission needed — sensors are read straight from the system.",
+        obMonitorNoPermission: "No permission needed. Sensors are read straight from the system.",
         obStepOptionalTitle: "Optional features",
         obStepOptionalBody: "Turn on what you want to use now. Everything can be changed later in Settings.",
         obPasswordlessToggle: "Closed lid without a password prompt",
@@ -862,6 +838,6 @@ extension Strings {
         obStepDoneBody: "Vorssaint Utils is already looking after your Mac.",
         obDoneHint: "Look for the black hole in the menu bar, at the top right of the screen.",
         obWhatsNewTitle: "What's new in this version",
-        obWhatsNewBody: "Four new optional features. See how each one works and turn on the ones you want — it takes under a minute."
+        obWhatsNewBody: "Four new optional features. See how each one works and turn on the ones you want."
     )
 }

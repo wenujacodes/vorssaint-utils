@@ -3,7 +3,6 @@ import Foundation
 /// Every UserDefaults key used by the app, in one place.
 enum DefaultsKey {
     static let language = "appLanguage"                   // AppLanguage.rawValue
-    static let keepDisplayOn = "keepDisplayOn"
     static let clamshellPreferred = "clamshellPreferred"  // apply closed-lid mode to every session
     static let onboardingStep = "onboardingStep"          // resume point if onboarding is interrupted
     static let featuresOnboardingVersion = "featuresOnboardingVersion" // last feature-tour version the user saw
@@ -21,7 +20,6 @@ enum DefaultsKey {
     static let finderCutPasteEnabled = "finderCutPasteEnabled"
     static let autoQuitEnabled = "autoQuitEnabled"
     static let autoQuitExceptions = "autoQuitExceptions"  // [bundle id] kept running
-    static let uninstallerEnabled = "uninstallerEnabled"
     static let shelfEnabled = "shelfEnabled"
     static let shelfShakeToOpen = "shelfShakeToOpen"
 }
@@ -36,7 +34,6 @@ enum OnboardingInfo {
 enum Defaults {
     static func register() {
         UserDefaults.standard.register(defaults: [
-            DefaultsKey.keepDisplayOn: true,
             DefaultsKey.clamshellPreferred: false,
             DefaultsKey.defaultDuration: 0,
             DefaultsKey.batteryLimit: 10,
