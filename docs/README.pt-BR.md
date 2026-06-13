@@ -1,93 +1,77 @@
-# Vorssaint Utils
+# Vorssaint
 
-> Uma central de utilidades premium e nativa para macOS, vivendo discretamente na barra de menus.
+> O conjunto de utilitários gratuito e open source que substitui vários apps pagos do Mac.
 
 *Read in [English](../README.md).*
 
-O Vorssaint Utils mantém o Mac acordado sob demanda, mostra as leituras do
-sistema que realmente importam, inverte a rolagem do mouse sem mexer no
-trackpad e substitui o ⌘Tab por um alternador de janelas com miniaturas
-reais. 100% nativo (SwiftUI + AppKit), bilíngue (pt-BR / en-US), sem Electron,
-sem analytics, sem chamadas de rede.
+Um app pequeno na barra de menus que faz o trabalho para o qual você instalaria
+(e pagaria) vários utilitários separados: manter o Mac acordado, ver o que está
+deixando ele lento, ajustar o volume por app, alternar janelas e abas, e resolver
+algumas chatices do dia a dia.
 
-## Recursos
+**Grátis. Open source. Local.** Sem conta, sem assinatura, sem telemetria, sem
+IA. Nada sai do seu Mac, exceto uma verificação de atualização que você pode
+desligar. É nativo (SwiftUI + AppKit), não é Electron, então fica pequeno e rápido.
 
-### ⚡ Manter acordado
-- Liga/desliga pelo painel, pelo menu de clique direito ou pelo atalho global **⌃⌥⌘K**
-- Sessões de 15 min a 8 h, ou indefinidas, com extensões de +15/+30/+60 min
-- A tela fica ligada enquanto a sessão está ativa
-- **Tampa fechada**: MacBook ativo mesmo fechado (`pmset disablesleep`,
-  revertido automaticamente ao fim da sessão, ao sair do app e após quedas)
-- **Sem senha (opcional)**: regra `sudoers` restrita a `pmset disablesleep 0/1`,
-  validada com `visudo -c`, removível a qualquer momento
-- **Proteção de bateria**: a sessão desliga abaixo de um limite de carga
-- Contagem regressiva na barra de menus e notificações de fim de sessão
+## O que ele faz
 
-### 🌡️ Monitor do sistema
-- **Temperaturas** de CPU, GPU e bateria: a leitura mais relevante de cada
-  componente, direto do SMC
-- **Uso de hardware**: % de CPU e % de GPU
-- **Pressão de memória** com indicador semáforo
-  (verde = normal, amarelo = atenção, vermelho = crítico) e memória em uso/total
+Cada recurso é opcional e tem a sua própria página nos Ajustes.
 
-### 🖱️ Rolagem do mouse
-- Inverte **apenas a roda do mouse**; o trackpad continua com a rolagem natural
-- Vale na hora, sem reiniciar, sem extensão de kernel
+### 🌡️ Veja o que está deixando o Mac lento
+Temperaturas de CPU, GPU e bateria, uso de CPU/GPU ao vivo e pressão de memória,
+direto na barra de menus. Toque em qualquer leitura para ver quais apps estão por trás.
 
-### 🪟 Alternador de janelas
-- Substitui o **⌘Tab** por uma grade com cada janela em miniatura ao vivo,
-  não apenas ícones
-- **Abas são tratadas como apps**: cada aba do Safari/Chrome/Edge/Brave/Vivaldi
-  é uma entrada própria, e o ⌘Tab alterna entre duas abas do mesmo navegador
-  como faria entre dois apps (ordem real de uso recente, no nível da aba)
-- Instantâneo: um toque rápido troca sem mostrar UI; a janela vem à frente na hora
-- Segure ⌘ e toque Tab para navegar; Shift/← volta; solte para trocar; **Q**
-  fecha o app selecionado; Esc cancela. Fluido, animado, compatível com Mission
-  Control e Spaces
-- Sem a Gravação de Tela, degrada graciosamente para ícones
+### 🎚️ Ajuste o volume por app
+Abaixe o Safari sem mexer no Spotify nem no Zoom. O mixer por app que o macOS
+nunca trouxe, com um ponto ao vivo no que está tocando. (macOS 14.4 ou mais recente.)
 
-### 🎚️ Mixer de volume por app
-- Ajuste o volume de cada app individualmente, algo que o macOS não oferece
-  (process taps do CoreAudio, macOS 14.4+; nada é gravado)
-- Todo app com conexão de áudio aparece, com indicador ao vivo para os que estão
-  tocando; volumes persistem por app, e 100% = áudio intocado
+### 🪟 Vá para qualquer janela na hora
+Substitui o ⌘Tab por uma grade com miniaturas reais das janelas, cada aba de
+navegador como uma entrada própria, e um toque rápido que volta para onde você estava.
 
-### ✂️ Recortar e colar no Finder
-- Pressione **⌘X** para recortar a seleção do Finder e **⌘V** para movê-la para
-  a pasta que você está vendo
-- Funciona com vários arquivos e pastas; um HUD flutuante mostra o que está
-  guardado e confirma o movimento. Em campos de texto, ⌘X e ⌘V seguem normais
+### ⚡ Mantenha o Mac acordado sob demanda
+Para um download, um build ou uma apresentação: com tempo definido ou até você
+desligar, mesmo com a tampa fechada. A proteção de bateria desliga quando a carga fica baixa.
 
-### ❌ Encerrar ao fechar a última janela
-- Quando a última janela de um app fecha, o app é encerrado e libera memória
-- Apps que rodam sem janela nunca são tocados, e uma lista de exceções mantém
-  aberto qualquer app que você escolher
+### 🖱️ Corrija a direção da rolagem do mouse
+Inverte a roda do mouse sem mexer na rolagem natural do trackpad.
 
-### 🗑️ Desinstalação completa de apps
-- Arraste um app (ou escolha um) para encontrar caches, preferências, logs,
-  contêineres e outros resíduos que ele deixa, com o tamanho de cada um
-- Revise a lista e mova os selecionados para a Lixeira (reversível, nunca uma
-  exclusão definitiva) e veja o espaço recuperado
+### ✂️ Mova arquivos no Finder com ⌘X / ⌘V
+Recorte arquivos e pastas e cole em outra pasta: o "mover" que falta no Finder.
+Campos de texto seguem com os atalhos normais.
 
-### 📥 Área temporária
-- Um espaço flutuante para juntar arquivos, imagens, textos e links e arrastá-los
-  depois para qualquer app, janela ou desktop
-- Chame-a perto do cursor com **⌃⌥⌘D** ou sacudindo o mouse durante o arraste;
-  sem precisar de nenhuma permissão
+### ❌ Feche a última janela e o app encerra
+Quando a última janela de um app fecha, ele é encerrado e libera a memória, com
+uma lista de exceções para os apps que você prefere manter abertos.
 
-> Os utilitários acima são opcionais. Configure cada um no onboarding ou em
-> **Ajustes › Recursos**, onde cada recurso tem sua própria página.
+### 🗑️ Remova um app e tudo que ele deixou para trás
+Solte um app nos Ajustes para encontrar caches, preferências, logs e outros
+resíduos, revise a lista e mande tudo para a Lixeira.
+
+### 📥 Uma área para carregar arquivos
+Uma bandeja flutuante, chamada perto do cursor, que guarda arquivos, imagens,
+textos e links para você arrastar entre apps, janelas e desktops.
+
+## Por que é feito assim
+
+- **Grátis e open source**, sob uma licença não comercial. Sem níveis pagos.
+- **Local por padrão.** Sem conta, sem login, sem telemetria. A única chamada de
+  rede verifica se há nova versão no GitHub, e dá para desligar.
+- **Nativo e leve.** SwiftUI + AppKit puro, sem dependências externas, um app
+  pequeno no lugar de vários.
+- **Opcional por princípio.** Cada recurso vem desligado até você ativar, pede
+  permissão só quando precisa e funciona de forma degradada sem ela.
 
 ## Instalação
 
 ### Download (recomendado)
 Baixe o DMG mais recente em [**Releases**](https://github.com/vorssaint/vorssaint-utils/releases),
-abra e arraste o **Vorssaint Utils** para **Aplicativos**.
+abra e arraste o **Vorssaint** para **Aplicativos**.
 
-> As releases são assinadas com um certificado próprio estável (sem o
-> certificado pago da Apple), então as permissões concedidas sobrevivem às
-> atualizações. O Gatekeeper ainda alerta na primeira abertura. Clique
-> direito no app → **Abrir**, ou remova a quarentena:
+> As releases são assinadas com um certificado próprio estável (sem o certificado
+> pago da Apple), então as permissões concedidas sobrevivem às atualizações. O
+> Gatekeeper ainda alerta na primeira abertura: clique direito no app e escolha
+> **Abrir**, ou remova a quarentena:
 > `xattr -d com.apple.quarantine "/Applications/Vorssaint Utils.app"`
 
 ### Compilar do código
@@ -95,7 +79,7 @@ abra e arraste o **Vorssaint Utils** para **Aplicativos**.
 git clone https://github.com/vorssaint/vorssaint-utils.git
 cd vorssaint-utils
 ./build.sh            # compila, gera o ícone e monta o bundle assinado
-./build.sh --install  # idem + instala em /Aplicativos e abre
+./build.sh --install  # idem, depois instala em /Aplicativos e abre
 ```
 
 ### Requisitos
@@ -105,8 +89,8 @@ cd vorssaint-utils
 
 ## Permissões
 
-Tudo é opcional: os recursos degradam graciosamente e o onboarding guia cada
-concessão:
+Tudo é opcional: os recursos funcionam de forma degradada e o onboarding guia
+cada concessão.
 
 | Permissão | Usada por | Sem ela |
 |---|---|---|
@@ -116,17 +100,26 @@ concessão:
 | **Acesso Total ao Disco** (opcional) | Varredura mais completa do desinstalador | Varre só os locais acessíveis |
 | **Administrador** (uma vez, opcional) | Tampa fechada sem senha | Pede senha a cada uso |
 
-Recortar/colar e as abas do alternador também pedem ao macOS o consentimento de
-Automação na primeira vez que falam com o Finder ou um navegador. A área
-temporária não precisa de nenhuma permissão.
+Recortar e colar, as abas do alternador e o desinstalador também pedem o
+consentimento de Automação na primeira vez que falam com o Finder ou um
+navegador. A área temporária não precisa de nenhuma permissão.
 
-A primeira abertura traz um onboarding guiado (idioma, permissões, tour do
-monitor e uma página opcional por recurso). Quem atualiza de uma versão anterior
-vê uma breve apresentação das novidades, uma única vez. Revise quando quiser em
-**Ajustes › Sobre › Rever introdução**.
+A primeira abertura traz um onboarding curto e guiado (idioma, permissões e uma
+página opcional por recurso). Reveja quando quiser em **Ajustes › Sobre**.
+
+## Desinstalação
+
+```sh
+./Tools/uninstall.sh   # de um clone, ou baixe do repositório
+```
+Encerra o app, remove o item de início, redefine as permissões de Acessibilidade
+e Gravação de Tela, apaga o app, as preferências e o estado salvo, e remove a
+regra `sudoers` opcional de tampa fechada, sem deixar nada para trás. Ou arraste
+o app para a Lixeira e rode `tccutil reset All com.vorssaint.utils` para limpar
+as permissões.
 
 ## Licença
 
-[PolyForm Noncommercial License 1.0.0](../LICENSE), © 2026 Vorssaint.
-Livre para usar, modificar e compartilhar para qualquer fim **não comercial**,
-com atribuição. Uso comercial não é permitido.
+[PolyForm Noncommercial License 1.0.0](../LICENSE), © 2026 Vorssaint. Livre para
+usar, modificar e compartilhar para qualquer fim **não comercial**, com
+atribuição. Uso comercial não é permitido.
