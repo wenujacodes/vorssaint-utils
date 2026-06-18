@@ -53,8 +53,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
         FinderCutPaste.shared.syncWithPreferences()
         AutoQuitService.shared.syncWithPreferences()
         ShelfService.shared.syncWithPreferences()
-        URLCleanerService.shared.syncWithPreferences()
-        WindowMaximizer.shared.syncWithPreferences()
         AppVolumeMixer.shared.start()
         UpdateService.shared.startAutomaticChecks()
         NotificationCenter.default.addObserver(self, selector: #selector(appBecameActive),
@@ -70,7 +68,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
                 AppSwitcher.shared.syncWithPreferences()
                 FinderCutPaste.shared.syncWithPreferences()
                 AutoQuitService.shared.syncWithPreferences()
-                WindowMaximizer.shared.syncWithPreferences()
             }
             .store(in: &cancellables)
 
@@ -85,15 +82,19 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
         if !defaults.bool(forKey: DefaultsKey.hasOnboarded) {
             showOnboarding(mode: .full)
         } else {
-            defaults.set(OnboardingInfo.currentFeatureSet, forKey: DefaultsKey.featuresOnboardingVersion)
-            defaults.set(AppInfo.version, forKey: DefaultsKey.lastUpdateIntroVersion)
+            let needsFeatureIntro = defaults.integer(forKey: DefaultsKey.featuresOnboardingVersion) < OnboardingInfo.currentFeatureSet
+            let needsVersionIntro = defaults.string(forKey: DefaultsKey.lastUpdateIntroVersion) != AppInfo.version
+            if needsFeatureIntro || needsVersionIntro {
+                if defaults.integer(forKey: DefaultsKey.featuresOnboardingVersion) < OnboardingInfo.panelNavigationFeatureSet {
+                    defaults.set(true, forKey: DefaultsKey.panelNavigationEnabled)
+                }
+                showOnboarding(mode: .update(includePanelNavigation: needsFeatureIntro))
+            }
         }
     }
 
     func applicationWillTerminate(_ notification: Notification) {
         isTerminating = true
-        URLCleanerService.shared.stop()
-        WindowMaximizer.shared.stop()
         AppVolumeMixer.shared.stopAll()
         KeepAwakeManager.shared.deactivate(reason: .quit)
     }
@@ -205,7 +206,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             matching: [.leftMouseDown, .rightMouseDown]
         ) { [weak self] _ in
             guard let self, self.popover.isShown else { return }
-            guard !PanelInteractionState.shared.keepsPopoverOpen else { return }
             self.closePopover()
         }
 
@@ -235,7 +235,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
     }
 
     private func shouldDismissPopover(forLocalEvent event: NSEvent) -> Bool {
-        guard !PanelInteractionState.shared.keepsPopoverOpen else { return false }
         guard event.window === settingsWindow,
               let settingsFrame = settingsWindow?.frame,
               let popoverFrame = popover.contentViewController?.view.window?.frame else {
@@ -247,9 +246,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
     @objc private func appResignedActive() {
         // Leaving the app entirely (e.g. ⌘Tab) dismisses the panel; switching to
         // our own Settings window keeps the app active, so it stays open.
-        if popover.isShown, !PanelInteractionState.shared.keepsPopoverOpen {
-            closePopover()
-        }
+        if popover.isShown { closePopover() }
     }
 
     @objc private func appBecameActive() {
@@ -337,7 +334,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
     func popoverDidClose(_ notification: Notification) {
         SystemMonitor.shared.panelDidDisappear()
         removePopoverDismissMonitor()
-        PanelInteractionState.shared.keepsPopoverOpen = false
         popoverClosedAt = Date()
         popoverIsClosing = false
         runPopoverCloseCompletions()
@@ -560,7 +556,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             let host = NSHostingController(rootView: SettingsView())
             let window = NSWindow(contentViewController: host)
             // .miniaturizable so the Window menu's Minimize (Cmd+M) actually works.
-            window.styleMask = [.titled, .closable, .miniaturizable]
+            window.styleMask = [.titled, .closable, .miniaturizable, .fullSizeContentView]
+            window.titlebarAppearsTransparent = true
+            window.titleVisibility = .hidden
             window.isReleasedWhenClosed = false
             window.isRestorable = false
             window.hidesOnDeactivate = false
@@ -569,7 +567,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             centerSettingsWindow(window)
             settingsWindow = window
         }
-        settingsWindow?.title = L10n.shared.s.settingsTitle
         NSApp.activate(ignoringOtherApps: true)
         settingsWindow?.makeKeyAndOrderFront(nil)
     }
@@ -633,40 +630,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             Notifier.requestPermission()
             self?.onboardingWindow?.close()
         })
-        host.sizingOptions = .preferredContentSize
         let window = NSWindow(contentViewController: host)
         window.title = mode.title(L10n.shared.s)
         window.styleMask = [.titled, .closable, .fullSizeContentView]
         window.titlebarAppearsTransparent = true
         window.titleVisibility = .hidden
         window.isReleasedWhenClosed = false
-        window.isRestorable = false
         window.isMovableByWindowBackground = true
         window.delegate = self
-        centerOnboardingWindow(window)
+        window.center()
         onboardingWindow = window
         NSApp.activate(ignoringOtherApps: true)
         window.makeKeyAndOrderFront(nil)
-        DispatchQueue.main.async { [weak self, weak window] in
-            guard let self, let window, window === self.onboardingWindow else { return }
-            self.centerOnboardingWindow(window)
-        }
-    }
-
-    private func centerOnboardingWindow(_ window: NSWindow) {
-        window.contentView?.layoutSubtreeIfNeeded()
-        let screen = window.screen ?? popover.contentViewController?.view.window?.screen ?? NSScreen.withMouse
-        let visible = screen.visibleFrame
-        let margin: CGFloat = 40
-        let availableWidth = max(1, visible.width - margin)
-        let availableHeight = max(1, visible.height - margin)
-        let width = min(max(window.frame.width, 540), availableWidth)
-        let height = min(max(window.frame.height, 600), availableHeight)
-        let frame = NSRect(x: visible.midX - width / 2,
-                           y: visible.midY - height / 2,
-                           width: width,
-                           height: height)
-        window.setFrame(frame.integral, display: false)
     }
 
     func windowWillClose(_ notification: Notification) {
