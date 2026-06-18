@@ -8,8 +8,8 @@ import SwiftUI
 /// the Features section, so every feature gets its own page.
 enum SettingsPage: Hashable {
     case general, energy, monitor
-    case mouse, switcher, cutPaste, autoQuit, uninstaller, urlCleaner, shelf
-    case advanced, about, releaseNotes, support
+    case mouse, switcher, cutPaste, autoQuit, uninstaller, shelf
+    case advanced, about, support
 }
 
 /// Selects the visible Settings page; the menu bar uses it to open Settings
@@ -27,30 +27,50 @@ struct SettingsView: View {
     @ObservedObject private var l10n = L10n.shared
     @ObservedObject private var router = SettingsRouter.shared
 
+    private func sidebarLabel(_ title: String, systemImage: String, color: Color) -> some View {
+        Label {
+            Text(title)
+        } icon: {
+            Image(systemName: systemImage)
+                .foregroundStyle(.white)
+                .frame(width: 24, height: 24)
+                .background(
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .fill(color.gradient)
+                )
+        }
+    }
+
     var body: some View {
         NavigationSplitView {
             List(selection: $router.page) {
-                Label(l10n.s.tabGeneral, systemImage: "gearshape").tag(SettingsPage.general)
-                Label(l10n.s.tabEnergy, systemImage: "bolt.fill").tag(SettingsPage.energy)
-                Label(l10n.s.tabMonitor, systemImage: "chart.line.uptrend.xyaxis").tag(SettingsPage.monitor)
-
-                Section(l10n.s.settingsGroupFeatures) {
-                    Label(l10n.s.tabMouse, systemImage: "computermouse").tag(SettingsPage.mouse)
-                    Label(l10n.s.tabSwitcher, systemImage: "rectangle.on.rectangle").tag(SettingsPage.switcher)
-                    Label(l10n.s.cutPasteName, systemImage: "scissors").tag(SettingsPage.cutPaste)
-                    Label(l10n.s.autoQuitName, systemImage: "xmark.rectangle").tag(SettingsPage.autoQuit)
-                    Label(l10n.s.uninstallerName, systemImage: "trash").tag(SettingsPage.uninstaller)
-                    Label(l10n.s.urlCleanerName, systemImage: "link").tag(SettingsPage.urlCleaner)
-                    Label(l10n.s.shelfName, systemImage: "tray.full").tag(SettingsPage.shelf)
+                Section {
+                    sidebarLabel(l10n.s.tabGeneral, systemImage: "gearshape.fill", color: .blue).tag(SettingsPage.general)
+                    sidebarLabel(l10n.s.tabAdvanced, systemImage: "slider.horizontal.3", color: .gray).tag(SettingsPage.advanced)
                 }
 
-                Label(l10n.s.tabAdvanced, systemImage: "wrench.and.screwdriver").tag(SettingsPage.advanced)
-                Label(l10n.s.tabAbout, systemImage: "info.circle").tag(SettingsPage.about)
-                Label(l10n.s.tabReleaseNotes, systemImage: "sparkles").tag(SettingsPage.releaseNotes)
-                Label(l10n.s.tabSupport, systemImage: "heart.fill").tag(SettingsPage.support)
+                Section("System & Display") {
+                    sidebarLabel(l10n.s.tabMonitor, systemImage: "display", color: .indigo).tag(SettingsPage.monitor)
+                    sidebarLabel(l10n.s.tabEnergy, systemImage: "battery.100", color: .green).tag(SettingsPage.energy)
+                }
+
+                Section(l10n.s.settingsGroupFeatures) {
+                    sidebarLabel(l10n.s.tabMouse, systemImage: "computermouse.fill", color: .blue).tag(SettingsPage.mouse)
+                    sidebarLabel(l10n.s.tabSwitcher, systemImage: "square.on.square.fill", color: .purple).tag(SettingsPage.switcher)
+                    sidebarLabel(l10n.s.cutPasteName, systemImage: "scissors", color: .orange).tag(SettingsPage.cutPaste)
+                    sidebarLabel(l10n.s.autoQuitName, systemImage: "xmark.app.fill", color: .red).tag(SettingsPage.autoQuit)
+                    sidebarLabel(l10n.s.shelfName, systemImage: "tray.full.fill", color: .teal).tag(SettingsPage.shelf)
+                }
+
+                Section("Maintenance") {
+                    sidebarLabel(l10n.s.uninstallerName, systemImage: "trash.fill", color: .gray).tag(SettingsPage.uninstaller)
+                    sidebarLabel(l10n.s.tabAbout, systemImage: "info.circle.fill", color: .blue).tag(SettingsPage.about)
+                    sidebarLabel(l10n.s.tabSupport, systemImage: "heart.fill", color: .pink).tag(SettingsPage.support)
+                }
             }
             .listStyle(.sidebar)
-            .navigationSplitViewColumnWidth(min: 198, ideal: 210, max: 240)
+            .environment(\.defaultMinListRowHeight, 36)
+            .navigationSplitViewColumnWidth(min: 220, ideal: 240, max: 280)
         } detail: {
             detail
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -70,11 +90,9 @@ struct SettingsView: View {
         case .cutPaste: CutPasteSettings()
         case .autoQuit: AutoQuitSettings()
         case .uninstaller: UninstallerView()
-        case .urlCleaner: URLCleanerSettings()
         case .shelf: ShelfSettings()
         case .advanced: AdvancedSettings()
         case .about: AboutSettings()
-        case .releaseNotes: ReleaseNotesSettings()
         case .support: SupportSettings()
         }
     }
@@ -135,6 +153,7 @@ struct GeneralSettings: View {
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
+            UpdatesView()
         }
         .formStyle(.grouped)
     }
@@ -256,16 +275,6 @@ struct EnergySettings: View {
             }
             Section(l10n.s.clamshellSection) {
                 Toggle(l10n.s.clamshellTitle, isOn: $awake.clamshellPreferred)
-                    .disabled(awake.clamshellSetupInProgress)
-                if awake.clamshellSetupInProgress {
-                    Text(l10n.s.configuring)
-                        .font(.caption)
-                        .foregroundStyle(.secondary)
-                } else if awake.clamshellSetupFailed {
-                    Text(l10n.s.sudoersFailed)
-                        .font(.caption)
-                        .foregroundStyle(.red)
-                }
                 Text(l10n.s.clamshellExplanation)
                     .font(.caption)
                     .foregroundStyle(.secondary)
@@ -372,18 +381,8 @@ struct AboutSettings: View {
     @ObservedObject private var l10n = L10n.shared
 
     var body: some View {
-        Form {
-            Section {
-                aboutContent
-            }
-
-            UpdatesView()
-        }
-        .formStyle(.grouped)
-    }
-
-    private var aboutContent: some View {
         VStack(spacing: 14) {
+            Spacer()
             BrandBadge(size: 76)
             VStack(spacing: 3) {
                 Text(AppInfo.name)
@@ -409,101 +408,13 @@ struct AboutSettings: View {
                 }
                 Link(l10n.s.viewOnGitHub, destination: AppInfo.repositoryURL)
             }
+            Spacer()
             Text(AppInfo.copyright)
                 .font(.caption2)
                 .foregroundStyle(.tertiary)
+                .padding(.bottom, 10)
         }
         .frame(maxWidth: .infinity)
-        .padding(.vertical, 20)
-    }
-}
-
-// MARK: - Release notes
-
-struct ReleaseNotesSettings: View {
-    @ObservedObject private var l10n = L10n.shared
-    private let notes = ReleaseNotes.current
-
-    var body: some View {
-        VStack(alignment: .leading, spacing: 14) {
-            VStack(alignment: .leading, spacing: 4) {
-                Text(l10n.s.obWhatsNewTitle)
-                    .font(.title2.bold())
-                Text(versionLine)
-                    .font(.caption)
-                    .foregroundStyle(.secondary)
-            }
-            .padding(.horizontal, 24)
-            .padding(.top, 24)
-
-            ScrollView {
-                VStack(alignment: .leading, spacing: 18) {
-                    if notes.sections.isEmpty {
-                        fallbackNote
-                    } else {
-                        ForEach(Array(notes.sections.enumerated()), id: \.offset) { _, section in
-                            releaseSection(section)
-                        }
-                    }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 24)
-                .padding(.bottom, 24)
-            }
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-    }
-
-    private var versionLine: String {
-        if let date = notes.date {
-            return "v\(notes.version) · \(date)"
-        }
-        return "v\(notes.version)"
-    }
-
-    private var fallbackNote: some View {
-        HStack(alignment: .top, spacing: 9) {
-            Image(systemName: "checkmark.circle.fill")
-                .font(.system(size: 13, weight: .semibold))
-                .foregroundStyle(Color.accentColor)
-                .frame(width: 18, alignment: .center)
-            Text(l10n.s.obWhatsNewFallback)
-                .font(.system(size: 12.5))
-                .foregroundStyle(.secondary)
-                .fixedSize(horizontal: false, vertical: true)
-        }
-    }
-
-    private func releaseSection(_ section: ReleaseNoteSection) -> some View {
-        VStack(alignment: .leading, spacing: 9) {
-            if !section.title.isEmpty {
-                Text(section.title.uppercased())
-                    .font(.system(size: 11, weight: .bold))
-                    .foregroundStyle(.secondary)
-                    .tracking(1.2)
-            }
-            ForEach(Array(section.items.enumerated()), id: \.offset) { _, item in
-                HStack(alignment: .top, spacing: 9) {
-                    Image(systemName: iconName(for: section.title))
-                        .font(.system(size: 12, weight: .semibold))
-                        .foregroundStyle(Color.accentColor)
-                        .frame(width: 18, alignment: .center)
-                    Text(item)
-                        .font(.system(size: 12.5))
-                        .foregroundStyle(.primary)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
-            }
-        }
-    }
-
-    private func iconName(for title: String) -> String {
-        switch title.lowercased() {
-        case "added": return "plus.circle.fill"
-        case "changed": return "slider.horizontal.3"
-        case "fixed": return "checkmark.circle.fill"
-        default: return "circle.fill"
-        }
     }
 }
 
@@ -544,8 +455,8 @@ struct SupportSettings: View {
     }
 }
 
-/// The Buy Me a Coffee call to action for the Support page. Opens the donate
-/// page in the default browser.
+/// The Buy Me a Coffee call to action, shared by the Support page and the
+/// onboarding announcement. Opens the donate page in the default browser.
 struct CoffeeButton: View {
     @ObservedObject private var l10n = L10n.shared
     @Environment(\.openURL) private var openURL
