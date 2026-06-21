@@ -85,10 +85,12 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
             let needsFeatureIntro = defaults.integer(forKey: DefaultsKey.featuresOnboardingVersion) < OnboardingInfo.currentFeatureSet
             let needsVersionIntro = defaults.string(forKey: DefaultsKey.lastUpdateIntroVersion) != AppInfo.version
             if needsFeatureIntro || needsVersionIntro {
-                if defaults.integer(forKey: DefaultsKey.featuresOnboardingVersion) < OnboardingInfo.panelNavigationFeatureSet {
+                if defaults.integer(forKey: DefaultsKey.featuresOnboardingVersion) < 4 { // 4: navigable menu panel sections
                     defaults.set(true, forKey: DefaultsKey.panelNavigationEnabled)
                 }
-                showOnboarding(mode: .update(includePanelNavigation: needsFeatureIntro))
+                // The .update mode was removed from OnboardingMode, so we just update the stored versions quietly
+                defaults.set(OnboardingInfo.currentFeatureSet, forKey: DefaultsKey.featuresOnboardingVersion)
+                defaults.set(AppInfo.version, forKey: DefaultsKey.lastUpdateIntroVersion)
             }
         }
     }
