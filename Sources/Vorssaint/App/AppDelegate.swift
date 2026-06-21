@@ -862,7 +862,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate, NSPopoverDelegate, NSW
                            width: width,
                            height: height)
         window.setFrame(frame.integral, display: false)
->>>>>>> upstream/main
     }
 
     private func centerDockPreviewIntroWindow(_ window: NSWindow) {

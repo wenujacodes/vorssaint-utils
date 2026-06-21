@@ -602,7 +602,6 @@ struct ReleaseNotesSettings: View {
         case "fixed": return "checkmark.circle.fill"
         default: return "circle.fill"
         }
->>>>>>> upstream/main
     }
 }
 
